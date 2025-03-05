@@ -14,7 +14,7 @@ const NavbarApp = () => {
         </li>
         <li>
           <NavLink
-            to="/home"
+            to="/"
             className="text-white font-semibold text-lg px-4 py-2 rounded-md transition duration-300 hover:bg-white/20"
           >
             Home
