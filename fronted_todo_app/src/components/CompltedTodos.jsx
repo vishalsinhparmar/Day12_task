@@ -1,8 +1,9 @@
-import {  useContext,  } from "react";
+import {  lazy, useContext,  } from "react";
 import { CreateTodoContext } from "../context/ContextProvider";
 import { FiGrid } from "react-icons/fi";
 import { CiGrid2H } from "react-icons/ci";
-import NavbarApp from "./NavbarApp";
+// import NavbarApp from "./NavbarApp";
+const NavbarApp = lazy(()=>import('./NavbarApp'))
 import { FaRegCheckCircle } from "react-icons/fa";
 
 const CompletdTodos = ()=>{
