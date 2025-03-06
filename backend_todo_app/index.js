@@ -19,9 +19,9 @@ app.use('/api',todoRoutes);
 //      res.status(200).send("server is running")
 // });
 
-const PORT  = 2000;
+// const PORT  = 2000;
 
-app.listen(PORT,()=>{
-     console.log('server is running http://localhost:2000')
+app.listen(process.env.PORT,()=>{
+     console.log(`server is running http://localhost:${process.env.PORT}`)
 });
 // app.use('/api/todos',todoRoutes);

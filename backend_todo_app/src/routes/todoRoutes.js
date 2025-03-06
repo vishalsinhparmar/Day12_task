@@ -1,5 +1,5 @@
 import express from 'express';
-import { deleteTodo, editTododata, fetchAlltodo, registerTodo, todobyId } from '../controller/todos.controller.js';
+import { completedTodoupdt, deleteTodo, editTododata, fetchAllcompletedTodo, fetchAlltodo, registerTodo, todobyId } from '../controller/todos.controller.js';
 
 const todoRoutes = express.Router();
 
@@ -9,6 +9,10 @@ todoRoutes.patch('/updtodo/:id',editTododata);
 todoRoutes.get('/todobyid/:id',todobyId);
 
 todoRoutes.delete('/deletetodo/:id',deleteTodo);
+todoRoutes.patch('/completeTodo/:id',completedTodoupdt);
+todoRoutes.get('/fetchAllcomplted',fetchAllcompletedTodo);
+
+
 
 
 

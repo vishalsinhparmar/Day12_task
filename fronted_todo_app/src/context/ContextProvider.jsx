@@ -5,6 +5,12 @@ const CreateTodoContext = createContext();
 const ContextProviderTodo = ({children})=>{
     const [todos, setTodos] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [grid,setGrid] = useState(false); 
+    const [completedTodo,setCompltedTodos] = useState([])
+
+    const gridLayoutchange = ()=>{
+        setGrid(!grid)
+    }
   
     const fetchAllTodos = async () => {
       try {
@@ -13,6 +19,9 @@ const ContextProviderTodo = ({children})=>{
   
         if (res.success) {
           setTodos(res.data);
+          const compltetedTodos = res.data.filter(todo => todo.completed);
+          console.log('completedTodo',compltetedTodos)
+          setCompltedTodos(compltetedTodos)
         }
       } catch (err) {
         console.log("Error fetching todos:", err.message);
@@ -25,7 +34,7 @@ const ContextProviderTodo = ({children})=>{
      }, []);
      return (
  
-           <CreateTodoContext.Provider value={{fetchAllTodos,todos,loading}}>
+           <CreateTodoContext.Provider value={{fetchAllTodos,todos,loading,gridLayoutchange,grid,completedTodo}}>
                 {children}
            </CreateTodoContext.Provider> 
 

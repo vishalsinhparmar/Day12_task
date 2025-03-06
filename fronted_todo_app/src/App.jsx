@@ -12,7 +12,7 @@ const App = () => {
     <Suspense fallback={<div>...loading</div>}>
   
       <NavbarApp />
-      <div className="bg-sky-200 min-h-screen flex flex-col items-center justify-start p-6 w-full">
+      <div className="bg-sky-200 min-h-screen flex flex-col items-center justify-start p-6 w-full pt-32">
         {/* Todo Form */}
         <div className="w-full max-w-lg mb-6">
           <TodoForm />

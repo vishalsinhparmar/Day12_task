@@ -1,23 +1,34 @@
 // import { useEffect} from "react";
 import { useContext, useState } from "react";
-import { deleteTodo,  } from "../services/api";
+import { addcompltedTodo, deleteTodo,  } from "../services/api";
 import { FaTrashCan } from "react-icons/fa6";
 import { FiEdit, FiGrid } from "react-icons/fi";
 import { useNavigate } from "react-router";
 import { CreateTodoContext } from "../context/ContextProvider";
 import { toast } from "react-toastify";
-import { GrDiamond } from "react-icons/gr";
 import { CiGrid2H } from "react-icons/ci";
 
 const FetchTodo = () => {
-  const [grid,setGrid] = useState(false); 
-  const gridLayoutchange = ()=>{
-      setGrid(!grid)
-  }
-  const {todos,fetchAllTodos,loading} = useContext(CreateTodoContext)
+  const[checked,setChecked] = useState({});
+  console.log(checked)
+  const {todos,fetchAllTodos,loading,gridLayoutchange,grid} = useContext(CreateTodoContext)
   const navigate = useNavigate();
 
+  const handleCheckbox = async(id,chekcStauts)=>{
 
+    const updateStatus = !chekcStauts;
+    const updtCompleted = {completed:updateStatus}
+    const res = await addcompltedTodo(id,updtCompleted);
+    if(res.success === true){
+      setChecked((prev)=>({
+        ...prev,
+        [id]:updateStatus
+       }));
+       await fetchAllTodos()
+    }
+    
+    
+  }
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this todo?",todos[id]);
     if (!confirmDelete) return;
@@ -52,10 +63,10 @@ const FetchTodo = () => {
             {todos.map((todo) => (
               <div
                 key={todo._id}
-                className="bg-gray-50 shadow-md p-4 rounded-lg flex justify-between items-center transition-all hover:bg-gray-200"
+                className={`bg-gray-50 shadow-md p-4 rounded-lg flex justify-between items-center transition-all hover:bg-gray-200 ${todo.completed ? "bg-green-200":""}`}
               >
                 <div>
-                  <p className="text-lg font-semibold text-gray-900   py-1 ">
+                  <p className={`text-lg font-semibold text-gray-900   py-1 ${todo.completed ? "line-through":""}`}>
                     <span className="text-slate-500 font-bold">{todo.todo.charAt(0).toUpperCase()}</span>{todo.todo.slice(1)}
                   </p>
                   {todo.createdAt && (
@@ -76,7 +87,18 @@ const FetchTodo = () => {
                     className="text-blue-500 hover:text-blue-700 transition-all cursor-pointer"
                     onClick={() => navigate(`/${todo._id}`)}
                   >
+
                     <FiEdit className="text-xl" />
+                  </button>
+
+                  <button
+                    className="text-blue-500 hover:text-blue-700 transition-all cursor-pointer"
+                  >
+                    
+                   <input type="checkbox" 
+                   checked={todo.completed}
+                   onChange={()=>handleCheckbox(todo._id,todo.completed)}
+                   className="bg-amber-100 p-4 border rounded cursor-pointer h-5 w-5" />
                   </button>
                 </div>
               </div>

@@ -26,11 +26,21 @@ const todobyId = async (id)=>{
     const res  = await api.get(`/todobyid/${id}`);
     return res.data;
 };
+const addcompltedTodo = async (id,completed)=>{
+    const res  = await api.patch(`/completeTodo/${id}`,completed);
+    return res.data;
+};
+const fetchCompltedtodo = async ()=>{
+    const res  = await api.get(`/fetchAllcomplted`);
+    return res.data;
+};
 
 export {
      addTodo,
      getTodos,
      editTodo,
      deleteTodo,
-     todobyId
+     todobyId,
+     addcompltedTodo,
+     fetchCompltedtodo
 }
