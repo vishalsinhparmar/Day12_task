@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const apiUrl = "http://localhost:2000/api";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ||  "https://day12task-production.up.railway.app/api";
 
 const api = axios.create({
-    baseURL:apiUrl
+    baseURL:API_BASE_URL
 });
 
 const addTodo = async (todo)=>{
